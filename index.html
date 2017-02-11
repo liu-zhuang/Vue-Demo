@@ -86,14 +86,15 @@
 									<li v-for="(item,index) in list">
 										<div class="cart-tab-1">
 											<div class="cart-item-check">
-												<a href="javascipt:;" class="item-check-btn"
+												<a href="#" class="item-check-btn"
 												v-bind:class="{check:item.isChecked}"
 												@click="selectGood(item,index)">
 												<svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
 											</a>
 										</div>
 										<div class="cart-item-pic">
-											<img v-bind:src="item.productImage">
+											<img v-bind:src="item.productImage"
+											@click="selectGood(item,index)">
 										</div>
 										<div class="cart-item-title">
 											<div class="item-name"></div>
@@ -124,9 +125,9 @@
 										<div class="item-quantity">
 											<div class="select-self select-self-open">
 												<div class="quentity">
-													<a href="javascript:;">-</a>
+													<a href="#">-</a>
 													<input type="text" :value="item.productQuentity" disabled>
-													<a href="javascript:;">+</a>
+													<a href="#">+</a>
 												</div>
 											</div>
 											<div class="item-stock">有货</div>
@@ -137,7 +138,7 @@
 									</div>
 									<div class="cart-tab-5">
 										<div class="cart-item-opration">
-											<a href="javascript:;" class="item-edit-btn" >
+											<a href="#" class="item-edit-btn" >
 												<svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
 											</a>
 										</div>
@@ -151,7 +152,7 @@
 					<div class="cart-foot-wrap">
 						<div class="cart-foot-l">
 							<div class="item-all-check">
-								<a href="javascipt:;">
+								<a href="#">
 									<span class="item-check-btn" :class="{check:isSelectAll}">
 										<svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
 									</span>
@@ -159,7 +160,7 @@
 								</a>
 							</div>
 							<div class="item-all-del">
-								<a href="javascipt:;" class="item-del-btn" @click="unSelectAll">
+								<a href="#" class="item-del-btn" @click="unSelectAll">
 									取消全选
 								</a>
 							</div>
