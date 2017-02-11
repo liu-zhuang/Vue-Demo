@@ -69,6 +69,10 @@ var vmCart = new Vue({
 		},
 		unSelectAll:function(){
 			this.isSelectAll = false;
+			this.list.forEach((good)=>{
+				good.isChecked = false;
+			})
+			this.currentIndex = -1;
 		},
 
 	},
@@ -76,14 +80,14 @@ var vmCart = new Vue({
 		currentIndex:function(newVal,oldVal){
 			debugger;
 			if(newVal != -1){
-				if(!this.isSelectAll && oldVal != -1){
-					this.list[oldVal].isChecked = false;	
-				} else {
+				if(oldVal == -1){
 					this.list.forEach(function(good,index){
 						if(index != newVal){
 							good.isChecked = false;
 						}
 					})
+				} else {
+					this.list[oldVal].isChecked = false;
 				}
 			}			
 		}
