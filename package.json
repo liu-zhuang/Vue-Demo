@@ -1,0 +1,19 @@
+{
+  "name": "check-cart",
+  "version": "1.0.0",
+  "description": "just a simple cart demo via Vue.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue.js"
+  ],
+  "author": "liu zhuang",
+  "license": "ISC",
+  "devDependencies": {
+    "axios": "^0.15.3",
+    "http-server": "^0.9.0",
+    "vue": "^2.1.10"
+  }
+}
