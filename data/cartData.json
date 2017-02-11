@@ -1,0 +1,37 @@
+{
+  "status":1,
+  "result":{
+    "totalMoney":59,
+    "list":[
+      {
+        "productId":"600100002115",
+        "productName":"黄鹤楼香烟",
+        "productPrice":19,
+        "productQuentity":1,
+        "productImage":"img/goods-1.jpg",
+        "parts":[
+          {
+            "partsId":"10001",
+            "partsName":"打火机",
+            "img":"img/part-1.jpg"
+          }
+        ]
+      },
+      {
+        "productId":"600100002120",
+        "productName":"加多宝",
+        "productPrice":8,
+        "productQuentity":5,
+        "productImage":"img/goods-2.jpg",
+        "parts":[
+          {
+            "partsId":"20001",
+            "partsName":"吸管",
+            "img":"img/part-2.jpg"
+          }
+        ]
+      }
+    ]
+  },
+  "message":""
+}
