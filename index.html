@@ -125,7 +125,7 @@
 											<div class="select-self select-self-open">
 												<div class="quentity">
 													<a href="javascript:;">-</a>
-													<input type="text"  disabled>
+													<input type="text" :value="item.productQuentity" disabled>
 													<a href="javascript:;">+</a>
 												</div>
 											</div>
@@ -159,7 +159,7 @@
 								</a>
 							</div>
 							<div class="item-all-del">
-								<a href="javascipt:;" class="item-del-btn">
+								<a href="javascipt:;" class="item-del-btn" @click="unSelectAll">
 									取消全选
 								</a>
 							</div>
