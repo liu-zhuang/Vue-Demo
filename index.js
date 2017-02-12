@@ -4,7 +4,9 @@ var vmCart = new Vue({
 		totalMoney:0,
 		list:new Array(),
 		currentIndex:0,
-		isSelectAll:false
+		isSelectAll:false,
+		confirmDelete:false,
+		readyToDelIndex:-1,
 	},
 	mounted:function(){
 		var _this = this;
@@ -22,8 +24,8 @@ var vmCart = new Vue({
 			// 如果要使用vmCart实例，
 			// 就必须在mounted钩子函数里再调用一次$nextTick方法才能保证el被render在dom中
 			function(retObj){
+				debugger;
 				if(retObj.status == 200){
-					vmCart.totalMoney = retObj.data.result.totalMoney;
 					vmCart.list = retObj.data.result.list;
 				}
 			}
@@ -54,10 +56,11 @@ var vmCart = new Vue({
 				this.$set(goodObj,"isChecked",true)
 			}
 			goodObj.isChecked = true; 
-			this.currentIndex = index;
-			if(this.isSelectAll){
-				this.isSelectAll = false;
-			}
+			this.list.forEach(function(good,_index){
+				if(_index != index){
+					good.isChecked = false;
+				}
+			});
 
 		},
 		selectAll:function(){
@@ -74,22 +77,60 @@ var vmCart = new Vue({
 			})
 			this.currentIndex = -1;
 		},
-
+		deleteSelectedGood:function(){
+			// check是否至少选中一件商品
+			var isSelectedGood = this.list.some(function(item){
+				return item.isChecked;
+			});
+			// 如果没有选中则弹框警告
+			if(!isSelectedGood){
+				alert("请至少选择一件商品!");
+			} else {
+				// 使用传统写法
+				// 遍历商品列表删除所有选中的
+				this.list.forEach(function(item,index,_list){
+					if(item.isChecked){
+						_list.splice(index,1);
+					}
+				});
+				// 使用箭头函数
+				// this.list.forEach((item,index)=>{
+				// 	if(item.isChecked){
+				// 		this.list.splice(index,1);
+				// 	}
+				// });
+			}
+		},
+		delGood:function(good,_index){
+			this.confirmDelete = true;
+			this.readyToDelIndex = _index;
+		},
+		cancelDel:function(){
+			this.confirmDelete = false;
+		},
+		doDel:function(){
+			this.list.splice(this.readyToDelIndex,1);
+			alert("删除成功！");
+			this.confirmDelete=false;
+		},
+		changeQuentity:function(good,val){
+			if(good.productQuentity == 1 && val == -1 ){
+				good.productQuentity = 1;
+			} else {
+				good.productQuentity += val;	
+			}
+		}
 	},
 	watch:{
-		currentIndex:function(newVal,oldVal){
-			debugger;
-			if(newVal != -1){
-				if(oldVal == -1){
-					this.list.forEach(function(good,index){
-						if(index != newVal){
-							good.isChecked = false;
-						}
-					})
-				} else {
-					this.list[oldVal].isChecked = false;
-				}
-			}			
+
+	},
+	computed:{
+		totalPrice:function(){
+			var total = 0;
+			this.list.forEach(function(good){
+				total += good.productPrice * good.productQuentity;
+			});
+			return total;
 		}
 	}
 });

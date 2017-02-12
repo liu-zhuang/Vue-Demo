@@ -30,6 +30,20 @@
             "img":"img/part-2.jpg"
           }
         ]
+      },
+      {
+        "productId":"600100002117",
+        "productName":"金装黄鹤楼",
+        "productPrice":25,
+        "productQuentity":2,
+        "productImage":"img/goods-1.jpg",
+        "parts":[
+          {
+            "partsId":"10001",
+            "partsName":"打火机",
+            "img":"img/part-1.jpg"
+          }
+        ]
       }
     ]
   },
