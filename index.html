@@ -87,9 +87,9 @@
 									<li v-for="(item,index) in list">
 										<div class="cart-tab-1">
 											<div class="cart-item-check">
-												<a href="#" class="item-check-btn"
+												<a href="javascript:void 0" class="item-check-btn"
 												v-bind:class="{check:item.isChecked}"
-												@click="selectGood(item,index)">
+												@click="selectGood(item)">
 												<svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
 											</a>
 										</div>
@@ -120,13 +120,13 @@
 										</div>
 									</div>
 									<div class="cart-tab-2">
-										<div class="item-price">{{item.productPrice}}</div>
+										<div class="item-price">{{item.productPrice | Currency}}</div>
 									</div>
 									<div class="cart-tab-3">
 										<div class="item-quantity">
 											<div class="select-self select-self-open">
 												<div class="quentity">
-													<a href="javascript:void 0" @click="changeQuentity(item,-1)">-</a>
+													<a href="javascript:void 0" @click="changeQuentity(item,-1,index)">-</a>
 													<input type="text" :value="item.productQuentity" disabled>
 													<a href="javascript:void 0" @click="changeQuentity(item,1)">+</a>
 												</div>
@@ -135,11 +135,11 @@
 										</div>
 									</div>
 									<div class="cart-tab-4">
-										<div class="item-price-total"></div>
+										<div class="item-price-total">{{item.productPrice * item.productQuentity}}</div>
 									</div>
 									<div class="cart-tab-5">
 										<div class="cart-item-opration">
-											<a href="#" class="item-edit-btn" 
+											<a href="javascript:void 0" class="item-edit-btn" 
 											@click="delGood(item,index)">
 											<svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
 										</a>
@@ -154,7 +154,7 @@
 				<div class="cart-foot-wrap">
 					<div class="cart-foot-l">
 						<div class="item-all-check">
-							<a href="#">
+							<a href="javascript:void 0">
 								<span class="item-check-btn" :class="{check:isSelectAll}">
 									<svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
 								</span>
@@ -162,20 +162,17 @@
 							</a>
 						</div>
 						<div class="item-all-del">
-							<a href="#" class="item-del-btn" @click="unSelectAll">
+							<a href="javascript:void 0" class="item-del-btn" @click="unSelectAll">
 								取消全选
 							</a>
 						</div>
 					</div>
 					<div class="cart-foot-r">
 						<div class="item-total">
-							Item total: <span class="total-price">{{totalPrice}}</span>
+							Item total: <span class="total-price">{{totalPrice | Currency}}</span>
 						</div>
 						<div class="next-btn-wrap">
 							<a href="address.html" class="btn btn--red">结账</a>
-						</div>
-						<div class="next-btn-wrap" style="margin: 0 5px">
-							<a href="javascript:void 0" @click="deleteSelectedGood" class="btn btn--gray-white">删除</a>
 						</div>
 					</div>
 				</div>

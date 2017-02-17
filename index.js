@@ -3,7 +3,6 @@ var vmCart = new Vue({
 	data:{
 		totalMoney:0,
 		list:new Array(),
-		currentIndex:0,
 		isSelectAll:false,
 		confirmDelete:false,
 		readyToDelIndex:-1,
@@ -24,14 +23,13 @@ var vmCart = new Vue({
 			// 如果要使用vmCart实例，
 			// 就必须在mounted钩子函数里再调用一次$nextTick方法才能保证el被render在dom中
 			function(retObj){
-				debugger;
 				if(retObj.status == 200){
 					vmCart.list = retObj.data.result.list;
 				}
 			}
 			)
 			.catch(function(errorObj){
-				
+				console.log("get data error...");
 			})
 		});
 	},
@@ -46,7 +44,6 @@ var vmCart = new Vue({
 			} else {
 				partObj.showImg = true;
 			}
-			
 		},
 		partMouseOut:function(partObj){
 			partObj.showImg = false;
@@ -54,28 +51,22 @@ var vmCart = new Vue({
 		selectGood:function(goodObj,index){
 			if(goodObj.isChecked == void 0){
 				this.$set(goodObj,"isChecked",true)
+			} else {
+				goodObj.isChecked = !goodObj.isChecked;
 			}
-			goodObj.isChecked = true; 
-			this.list.forEach(function(good,_index){
-				if(_index != index){
-					good.isChecked = false;
-				}
-			});
-
+			this.isCheckAll();
 		},
 		selectAll:function(){
 			this.isSelectAll = true;
 			this.list.forEach((good)=>{
 				good.isChecked = true;
 			});
-			this.currentIndex = -1;
 		},
 		unSelectAll:function(){
 			this.isSelectAll = false;
 			this.list.forEach((good)=>{
 				good.isChecked = false;
 			})
-			this.currentIndex = -1;
 		},
 		deleteSelectedGood:function(){
 			// check是否至少选中一件商品
@@ -110,16 +101,29 @@ var vmCart = new Vue({
 		},
 		doDel:function(){
 			this.list.splice(this.readyToDelIndex,1);
-			alert("删除成功！");
 			this.confirmDelete=false;
 		},
-		changeQuentity:function(good,val){
+		changeQuentity:function(good,val,_index){
 			if(good.productQuentity == 1 && val == -1 ){
-				good.productQuentity = 1;
+				this.confirmDelete = true;
+				this.readyToDelIndex = _index;
 			} else {
 				good.productQuentity += val;	
 			}
-		}
+		},
+		isCheckAll:function(){
+			var flag = true;
+			this.list.forEach(function(good){
+				if(!good.isChecked){
+					flag = false;
+				}
+			});
+			if(!flag){
+				this.isSelectAll = false;
+			} else {
+				this.isSelectAll = true;
+			}
+		},
 	},
 	watch:{
 
@@ -128,10 +132,17 @@ var vmCart = new Vue({
 		totalPrice:function(){
 			var total = 0;
 			this.list.forEach(function(good){
-				total += good.productPrice * good.productQuentity;
+				if(good.isChecked){
+					total += good.productPrice * good.productQuentity;
+				}
 			});
 			return total;
-		}
+		},
+	},
+	filters:{
+		Currency:function(val){
+			return val + " 元";
+		},
 	}
 });
 
