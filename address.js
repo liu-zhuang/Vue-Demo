@@ -9,10 +9,9 @@ var vmAddress = new Vue({
 	},
 	mounted:function(){
 		this.$nextTick(function(){
-			axios.get('http://localhost:8080/data/address.json')
+			axios.get('http://liuzhuang.tech/vue/data/address.json')
 			.then(retObj=>{
 				if(retObj.status == 200){
-					debugger;
 					this.addressList = retObj.data.result;
 					this.addressList.forEach(address=>{
 						if(address.isDefault){
@@ -31,13 +30,11 @@ var vmAddress = new Vue({
 	},
 	computed:{
 		filteAddress:function(){
-			debugger;
 			return this.addressList.slice(0,this.limitNum);
 		},
 	},
 	watch:{
 		currentDefaultAddress:function(newVal,oldVal){
-			debugger;
 			oldVal.isDefault = false;
 		},
 	}

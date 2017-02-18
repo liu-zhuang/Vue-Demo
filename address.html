@@ -89,7 +89,7 @@
                 </div>
 
                 <div class="shipping-addr-more">
-                    <a class="addr-more-btn up-down-btn" href="javascript:;" @click="limitNum=addressList.length">
+                    <a class="addr-more-btn up-down-btn" href="javascript:;" @click="limitNum=(limitNum == addressList.length?3:addressList.length)">
                         more
                         <i class="i-up-down">
                             <i class="i-up-down-l"></i>
