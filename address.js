@@ -9,7 +9,7 @@ var vmAddress = new Vue({
 	},
 	mounted:function(){
 		this.$nextTick(function(){
-			axios.get('http://liuzhuang.tech/vue/data/address.json')
+			axios.get('http://localhost:8080/data/address.json')
 			.then(retObj=>{
 				if(retObj.status == 200){
 					this.addressList = retObj.data.result;
