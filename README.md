@@ -13,3 +13,4 @@ Run Project
 ``` cmd
 $ npm run start
 ```
+Launch the app,visit[http://localhost:8080](http://localhost:8080)
